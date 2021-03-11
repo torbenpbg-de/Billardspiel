@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Kugel
 comment0.text=\ \n\ Die\ Klasse\ Kugel\ \ \n\ @author\ Torben\ Piepenburg\n\ @version\ 0.4\n
-comment1.params=pH\ pV\ pGroesse\ pGeschw\ pRichtung
-comment1.target=Kugel(int,\ int,\ int,\ double,\ double)
+comment1.params=pH\ pV\ pGroesse\ pGeschw\ pRichtung\ pBildschirm
+comment1.target=Kugel(int,\ int,\ int,\ double,\ double,\ sum.kern.Bildschirm)
 comment1.text=\ \n\ Der\ Stift\ zum\ Zeichnen\ der\ Kugel\ wird\ erzeugt.\ \n
 comment10.params=
 comment10.target=boolean\ amLinkenRand()

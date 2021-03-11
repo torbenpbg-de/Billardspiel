@@ -8,7 +8,8 @@ public class Kugel
 { 
     // Bezugsobjekte 
     private Stift hatStift;
-
+    private Bildschirm kenntBildschirm;
+    
     // Attribute
     private int zGroesse;
     private double zGeschw;
@@ -18,15 +19,15 @@ public class Kugel
     /** 
      * Der Stift zum Zeichnen der Kugel wird erzeugt. 
      */ 
-    public Kugel(int pH, int pV, int pGroesse, double pGeschw, double pRichtung) 
+    public Kugel(int pH, int pV, int pGroesse, double pGeschw, double pRichtung, Bildschirm pBildschirm) 
     {         
         zGroesse = pGroesse; 
         zGeschw = pGeschw;
         zRichtung = pRichtung;
-
         hatStift = new Stift(); 
         hatStift.bewegeBis(pH, pV);
         this.setzeRichtung(zRichtung);
+        kenntBildschirm = pBildschirm;
 
     } 
     // Dienste
@@ -121,7 +122,7 @@ public class Kugel
      */
     private boolean amLinkenRand()
     {
-        if (this.hPosition() < 80 + zGroesse + 1)
+        if (this.hPosition() < 0 + zGroesse + 1)
         {
             return true;
         }
@@ -138,7 +139,7 @@ public class Kugel
      */
     private boolean amRechtenRand()
     {
-        if (this.hPosition() > 560 - zGroesse -1)
+        if (this.hPosition() > kenntBildschirm.breite() - zGroesse -1)
         {
             return true;
         }
@@ -150,7 +151,7 @@ public class Kugel
     
     private boolean amOberenRand()
     {
-        if (this.vPosition() < 80 + zGroesse +1)
+        if (this.vPosition() < 0 + zGroesse +1)
         {
             return true;
         }
@@ -162,7 +163,7 @@ public class Kugel
     
     private boolean amUnterenRand()
     {
-        if (this.vPosition() > 360 - zGroesse -1)
+        if (this.vPosition() > kenntBildschirm.hoehe() - zGroesse -1)
         {
             return true;
         }
