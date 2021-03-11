@@ -1,8 +1,10 @@
 #BlueJ class context
-comment0.params=
-comment0.target=void\ fuehreAus()
-comment0.text=\r\n\ "Hauptdienst"\ des\ Programmes\r\n
+comment0.target=Billardspiel
+comment0.text=\ \n\ @author\ Torben\ Piepenburg\ \n\ @version\ 0.4\n
 comment1.params=
-comment1.target=void\ zeichneTisch()
-comment1.text=\r\n\ In\ diesem\ Teil\ wird\ der\ Billardtisch\ gezeichnet\r\n
-numComments=2
+comment1.target=void\ fuehreAus()
+comment1.text=\n\ "Hauptdienst"\ des\ Programmes\n
+comment2.params=
+comment2.target=void\ zeichneTisch()
+comment2.text=\n\ In\ diesem\ Teil\ wird\ der\ Billardtisch\ gezeichnet\n
+numComments=3

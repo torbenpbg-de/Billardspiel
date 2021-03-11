@@ -1,19 +1,26 @@
 import sum.kern.*; 
 /** 
  * @author Torben Piepenburg 
- * @version 0.2
+ * @version 0.4
  */ 
 public class Billardspiel 
 { 
     // Objekte 
     private Bildschirm hatBildschirm; 
     private Maus hatMaus; 
-    private Kugel hatKugel;
+    private Kugel Kugel1;
+    private Kugel Kugel2;
+    private Kugel Kugel3;
     Stift meinStift;
     // Konstruktor - erzeugen der Objekte  public Hauptprogramm() 
     { 
-        hatBildschirm = new Bildschirm(640,480);  hatMaus = new Maus(); 
-        hatKugel = new Kugel();  meinStift = new Stift();
+        hatBildschirm = new Bildschirm(640,480);
+        hatMaus = new Maus(); 
+        meinStift = new Stift();
+        Kugel1 = new Kugel(100, 100, 5, 0.1, 80); 
+        Kugel2 = new Kugel(400, 200, 8, 0.2, 100);
+        Kugel3 = new Kugel(100, 300, 10, 0.15, 60); 
+
     } 
     // Dienste 
     /**
@@ -23,18 +30,18 @@ public class Billardspiel
     { 
         //Grenzpunkte: (x = 80 bis 560 | y = 80 bis 360)
         this.zeichneTisch();
-
-        //Kugel wird in den Billardtisch gesetzt
-        hatKugel.bewegeBis(320, 220);
-        
+       
         //Die Kugel bewegt sich innerhalb des Tisches solange kein Doppelklick
         do 
         {            
-            hatKugel.bewege(0.25);
+            Kugel1.bewege();
+            Kugel2.bewege();
+            Kugel3.bewege();
         } while (!hatMaus.doppelKlick());   
         
         // Aufraeumen 
-        hatKugel.gibFrei(); 
+        Kugel1.gibFrei();
+        Kugel2.gibFrei(); 
         hatMaus.gibFrei(); 
         hatBildschirm.gibFrei();     
     }

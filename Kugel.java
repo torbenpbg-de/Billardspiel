@@ -2,21 +2,32 @@ import sum.kern.*;
 /** 
  * Die Klasse Kugel  
  * @author Torben Piepenburg
- * @version 0.2
+ * @version 0.4
  */ 
 public class Kugel 
 { 
     // Bezugsobjekte 
-    private Stift hatStift; 
-    // Attribute 
+    private Stift hatStift;
+
+    // Attribute
+    private int zGroesse;
+    private double zGeschw;
+    private double zRichtung;
+
     // Konstruktor 
     /** 
      * Der Stift zum Zeichnen der Kugel wird erzeugt. 
      */ 
-    public Kugel() 
-    { 
+    public Kugel(int pH, int pV, int pGroesse, double pGeschw, double pRichtung) 
+    {         
+        zGroesse = pGroesse; 
+        zGeschw = pGeschw;
+        zRichtung = pRichtung;
+
         hatStift = new Stift(); 
-        hatStift.bewegeBis(10, 100); 
+        hatStift.bewegeBis(pH, pV);
+        this.setzeRichtung(zRichtung);
+
     } 
     // Dienste
     /** 
@@ -32,7 +43,7 @@ public class Kugel
      */ 
     public void zeichne() 
     { 
-        hatStift.zeichneKreis(5); 
+        hatStift.zeichneKreis(zGroesse); 
     } 
 
     /** 
@@ -42,7 +53,7 @@ public class Kugel
     { 
         //Löscht die Kugel
         hatStift.radiere();
-        hatStift.zeichneKreis(5);
+        hatStift.zeichneKreis(zGroesse);
         hatStift.normal();
     } 
 
@@ -50,21 +61,20 @@ public class Kugel
      * Die Kugel bewegt sich über den Bildschirm.
      * @param pWeg beschreibt wie weit sich die Kugel bewegen soll.
      */ 
-    public void bewege(double pWeg) 
+    public void bewege() 
     { 
         //Bewegt die Kugel
         this.loesche();        
-        hatStift.bewegeUm(pWeg);        
+        hatStift.bewegeUm(zGeschw);        
         this.zeichne();
 
-        if (this.amLinkenRand())
+        if (this.amLinkenRand() || this.amRechtenRand())
         {
-            this.setzeRichtung(0);
+            this.setzeRichtung(180 - hatStift.winkel());
         }
-
-        if (this.amRechtenRand())
+        else if (this.amOberenRand() || this.amUnterenRand())
         {
-            this.setzeRichtung(180);
+            this.setzeRichtung(360 - hatStift.winkel());
         }
 
     }
@@ -74,6 +84,17 @@ public class Kugel
         hatStift.bewegeBis(pX, pY);
     }
 
+    /** 
+     * die Richtung der Kugel wird geändert 
+     * @param pRichtung neue Richtung der Kugel in Grad 
+     */ 
+    public void setzeRichtung(double pRichtung) 
+    { 
+        zRichtung = pRichtung;
+        hatStift.dreheBis(zRichtung); 
+    } 
+
+    
     /** 
      * Die horizontale Position der Kugel wird zurückgegeben
      * @return horizontale Position der Kugel 
@@ -93,22 +114,14 @@ public class Kugel
         return hatStift.vPosition(); 
     } 
 
-    /** 
-     * die Richtung der Kugel wird geändert 
-     * @param pRichtung neue Richtung der Kugel in Grad 
-     */ 
-    public void setzeRichtung(double pRichtung) 
-    { 
-        hatStift.dreheBis(pRichtung); 
-    } 
-
     /**
      * wenn die Kugel den linken Rand erreicht soll "wahr" ausgegeben werden
+     * Damit die "Außenpunkte" anstatt des Mittelpunktes der Kugel genommen wird die Größe addiert 
      * Damit die Kugel nicht auf dem Rand liegt sondern vor dem Rand stoppt wird eine 1 addiert
      */
     private boolean amLinkenRand()
     {
-        if (this.hPosition() < 80 + 5 + 1)
+        if (this.hPosition() < 80 + zGroesse + 1)
         {
             return true;
         }
@@ -120,11 +133,36 @@ public class Kugel
 
     /**
      * wenn die Kugel den rechten Rand erreicht soll "wahr" ausgegeben werden
+     * Damit die "Außenpunkte" anstatt des Mittelpunktes der Kugel genommen wird die Größe subtrahiert
      * Damit die Kugel nicht auf dem Rand liegt sondern vor dem Rand stoppt wird eine 1 subtrahiert
      */
     private boolean amRechtenRand()
     {
-        if (this.hPosition() > 560 - 5 -1)
+        if (this.hPosition() > 560 - zGroesse -1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private boolean amOberenRand()
+    {
+        if (this.vPosition() < 80 + zGroesse +1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    private boolean amUnterenRand()
+    {
+        if (this.vPosition() > 360 - zGroesse -1)
         {
             return true;
         }
@@ -134,5 +172,24 @@ public class Kugel
         }
     }
 
-    
+    public void setzeGroesse(int pGroesse)
+    {
+        zGroesse = pGroesse;
+    }
+
+    public int groesse()
+    {
+        return zGroesse;
+    }
+
+    public void setzeGeschw(double pGeschw)
+    {
+        zGeschw = pGeschw;
+    }
+
+    public double geschw()
+    {
+        return zGeschw;
+    }
+
 } 
